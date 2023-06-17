@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request
+import random
 
 app = Flask(__name__)
 
@@ -13,13 +13,50 @@ def index():
 
     return render_template("testapp/index.html", my_dict = my_dict)
 
+@app.route("/sampleform", methods=["GET", "POST"])
+def sampleform():
+    if request.method =="GET":
+        return render_template("testapp/sampleform.html")
 
-@app.route("/test")
-def other1():
-    return "This is test page"
+    if request.method =="POST":
+        comp = random.randrange(3)
+        if comp == 0:
+            comp_hand = "Computer is Stone"
+        elif comp == 1:
+            comp_hand = "Computer is Scissors"
+        else:
+            comp_hand = "Computer is Paper"
 
+        req1 = int(request.form["janken"])
 
+        if req1 == 0:
+            your_hand = 'You are Stone'
+        elif req1 == 1:
+            your_hand = 'You are Scissors'
+        else:
+            your_hand = 'You are Paper'
 
+        if comp == req1:
+            result = "draw"
+        elif req1 == 1 and comp ==0:
+            result ="You lose"
+
+        elif req1 == 2 and comp ==0:
+            result ="You win"
+
+        elif req1 == 0 and comp ==1:
+            result ="You win"
+
+        elif req1 == 2 and comp ==1:
+            result ="You lose"
+
+        elif req1 == 0 and comp == 2:
+            result ="You lose"
+
+        elif req1 == 1 and comp == 2:
+            result ="You win"
+
+    return f'{comp_hand} vs {your_hand}:{result} '
 
 
 if __name__ == "__main__":
