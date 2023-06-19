@@ -1,8 +1,9 @@
 from flask import Flask, render_template, request
 import random
+from flask_bootstrap import Bootstrap
 
 app = Flask(__name__)
-
+bootstrap = Bootstrap(app) # tie app to bootstrap
 
 @app.route("/")
 def index():
@@ -16,7 +17,7 @@ def index():
 @app.route("/sampleform", methods=["GET", "POST"])
 def sampleform():
     if request.method =="GET":
-        return render_template("testapp/sampleform.html")
+        return render_template("sampleform.html")
 
     if request.method =="POST":
         comp = random.randrange(3)
