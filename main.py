@@ -57,7 +57,14 @@ def sampleform():
         elif req1 == 1 and comp == 2:
             result ="You win"
 
-    return f'{comp_hand} vs {your_hand}:{result} '
+        judge ={
+            "computer_hand":comp_hand,
+            "player_hand":your_hand,
+            "judgement":result,
+        }
+
+    return render_template("janken_result.html", judge=judge)
+
 
 
 if __name__ == "__main__":
